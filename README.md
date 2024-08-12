@@ -6,7 +6,7 @@
 npm install annotation-node
 ```
 
-## example
+## basic example
 ```typescript
 import express from 'express';
 import { Controller, Get, ControllerRegistry } from 'your-package-name';
@@ -29,21 +29,36 @@ class ProductController {
 
 const app = express();
 
-// ex 1: 단일 배열로 컨트롤러 등록
-ControllerRegistry.addControllers(app, [UserController, ProductController]);
-
-// ex 2: 그룹화된 컨트롤러 등록
-ControllerRegistry.addControllers(app, {
-    '/v1': [UserController],
-    '/v2': [ProductController]
-});
-
-// ex 3: 전체 API에 대한 prefix 추가
 ControllerRegistry.addControllers(app, [UserController, ProductController], '/api');
 
 app.listen(3000, () => console.log('Server is running on port 3000'));
 ```
 
+## Example using single controller
+```typescript
+ControllerRegistry.addController(UserController);
+ControllerRegistry.addController(ProductController);
+```
+
+## Registering Controllers as a Single Array
+```typescript
+ControllerRegistry.addControllers(app, [UserController, ProductController]);
+```
+
+## Registering grouped controllers
+```typescript
+ControllerRegistry.addControllers(app, {
+    '/v1': [UserController],
+    '/v2': [ProductController]
+});
+```
+
+## Add prefix for entire API
+```typescript
+ControllerRegistry.addControllers(app, [UserController, ProductController], '/api');
+```
+
+## Example using multiple HTTP methods
 ```typescript
 import { Controller, Get, Post, Put, Delete } from 'annotation-node';
 import { Request, Response } from 'express';
@@ -74,6 +89,7 @@ class UserController {
 export default UserController;
 ```
 
+## Example of using middleware
 ```typescript
 import { Controller, Get, Middleware } from 'annotation-node';
 import { Request, Response, NextFunction } from 'express';
