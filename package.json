@@ -1,6 +1,6 @@
 {
   "name": "annotation-node",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A lightweight decorator-based framework for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

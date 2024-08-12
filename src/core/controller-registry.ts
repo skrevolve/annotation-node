@@ -1,9 +1,9 @@
 import { Express } from 'express';
-import { ROUTE_PREFIX, ROUTES, RouteDefinition, getMetadata } from './metadata';
+import { ROUTE_PREFIX, ROUTES, MIDDLEWARE, RouteDefinition, getMetadata } from './metadata';
 
 export class ControllerRegistry {
 
-    public static addControllers (
+    public static addControllers(
         app: Express,
         controllers: any[] | { [group: string]: any[] },
         groupPrefix: string = ''
@@ -22,11 +22,14 @@ export class ControllerRegistry {
         const instance = new controller();
         const prefix = getMetadata(ROUTE_PREFIX, controller) || '';
         const routes: RouteDefinition[] = getMetadata(ROUTES, controller) || [];
+        const classMiddlewares = getMetadata(MIDDLEWARE, controller) || [];
 
         routes.forEach(route => {
             const handler = (instance[route.methodName as keyof typeof instance] as Function).bind(instance);
             const fullPath = `${groupPrefix}${prefix}${route.path}`;
-            (app as any)[route.method](fullPath, handler);
+            const methodMiddlewares = getMetadata(MIDDLEWARE, controller, route.methodName) || [];
+            const middlewares = [...classMiddlewares, ...methodMiddlewares];
+            (app as any)[route.method](fullPath, ...middlewares, handler);
         });
     }
 }

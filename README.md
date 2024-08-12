@@ -85,25 +85,40 @@ export default UserController;
 
 ## Example of using middleware
 ```typescript
-import { Controller, Get, Middleware } from 'annotation-node';
-import { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import { Controller, Get, Use, ControllerRegistry } from 'your-package-name';
 
-function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  if (req.headers['authorization']) {
+function loggerMiddleware(req: express.Request, res: express.Response, next: () => void) {
+    console.log(`Request received at: ${new Date()}`);
     next();
-  } else {
-    res.status(401).send('Unauthorized');
-  }
 }
 
-@Controller('/auth')
-class AuthController {
-  @Get('/protected')
-  @Middleware(authMiddleware)
-  protectedRoute(req: Request, res: Response) {
-    res.send('This is a protected route');
-  }
+function authMiddleware(req: express.Request, res: express.Response, next: () => void) {
+    if (req.headers['authorization']) {
+        next();
+    } else {
+        res.status(401).send('Unauthorized');
+    }
 }
 
-export default AuthController;
+@Controller('/user')
+@Use(loggerMiddleware)
+class UserController {
+    @Get('/public')
+    public getPublicInfo(req: express.Request, res: express.Response) {
+        res.send('Public information');
+    }
+
+    @Get('/private')
+    @Use(authMiddleware)
+    public getPrivateInfo(req: express.Request, res: express.Response) {
+        res.send('Private information');
+    }
+}
+
+const app = express();
+
+ControllerRegistry.addControllers(app, [UserController]);
+
+app.listen(3000, () => console.log('Server is running on port 3000'));
 ```
