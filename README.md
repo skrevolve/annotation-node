@@ -9,7 +9,7 @@ npm install annotation-node
 ## basic example
 ```typescript
 import express, { Request, Response, NextFunction } from 'express';
-import { Controller, Get, ControllerRegistry } from 'your-package-name';
+import { Controller, Get, ControllerRegistry } from 'annotation-node';
 
 @Controller('/users')
 class UserController {
