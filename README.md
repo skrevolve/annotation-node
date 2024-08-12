@@ -86,7 +86,7 @@ export default UserController;
 ## Example of using middleware
 ```typescript
 import express from 'express';
-import { Controller, Get, Use, ControllerRegistry } from 'your-package-name';
+import { Controller, Get, Use, ControllerRegistry } from 'annotation-node';
 
 function loggerMiddleware(req: express.Request, res: express.Response, next: () => void) {
     console.log(`Request received at: ${new Date()}`);
