@@ -11,17 +11,28 @@ npm install annotation-node
 import express, { Request, Response } from 'express';
 import { Controller, Get, ControllerRegistry } from 'annotation-node';
 
-@Controller('/api')
-class HelloController {
-    @Get('/hello')
+@Controller('/api/user')
+class UserController {
+    @Get('/info')
     sayHello(req: Request, res: Response) {
-        res.send('Hello, World!');
+        res.send('GET /api/user/info');
+    }
+}
+
+@Controller('/api/member')
+class MemberController {
+    @Get('/info')
+    sayHello(req: Request, res: Response) {
+        res.send('GET /api/member/info');
     }
 }
 
 const app = express();
 
-ControllerRegistry.registerControllers(app, [HelloController]);
+ControllerRegistry.addControllers(app, [
+    UserController,
+    MemberController,
+]);
 
 app.listen(3000, () => console.log('Server is running on port 3000'));
 ```
