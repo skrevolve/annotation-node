@@ -85,15 +85,15 @@ export default UserController;
 
 ## Example of using middleware
 ```typescript
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { Controller, Get, Middleware, ControllerRegistry } from 'annotation-node';
 
-function logger(req: express.Request, res: express.Response, next: () => void) {
+function logger(req: Request, res: Response, next: NextFunction) {
     console.log(`Request received at: ${new Date()}`);
     next();
 }
 
-function auth(req: express.Request, res: express.Response, next: () => void) {
+function auth(req: Request, res: Response, next: NextFunction) {
     if (req.headers['authorization']) {
         next();
     } else {
@@ -105,13 +105,13 @@ function auth(req: express.Request, res: express.Response, next: () => void) {
 @Middleware(logger)
 class UserController {
     @Get('/public')
-    public getPublicInfo(req: express.Request, res: express.Response) {
+    public getPublicInfo(req: Request, res: Response) {
         res.send('Public information');
     }
 
     @Get('/private')
     @Middleware(auth)
-    public getPrivateInfo(req: express.Request, res: express.Response) {
+    public getPrivateInfo(req: Request, res: Response) {
         res.send('Private information');
     }
 }
