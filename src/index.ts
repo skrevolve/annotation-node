@@ -1,2 +1,2 @@
 export * from './decorators';
-export * from './core/app';
+export * from './core/controller-registry';
