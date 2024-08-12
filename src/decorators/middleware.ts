@@ -6,7 +6,7 @@ export interface MiddlewareFunction {
     (req: any, res: any, next: () => void): void;
 }
 
-export function Use(...middlewares: MiddlewareFunction[]): ClassDecorator & MethodDecorator {
+export function Middleware(...middlewares: MiddlewareFunction[]): ClassDecorator & MethodDecorator {
     return (target: any, propertyKey?: string | symbol, descriptor?: PropertyDescriptor) => {
         if (propertyKey) {
             // Method decorator
