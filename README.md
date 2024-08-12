@@ -8,13 +8,13 @@ npm install annotation-node
 
 ## basic example
 ```typescript
-import express from 'express';
-import { Controller, Get, ControllerRegistry } from 'your-package-name';
+import express, { Request, Response, NextFunction } from 'express';
+import { Controller, Get, ControllerRegistry } from 'annotation-node';
 
 @Controller('/users')
 class UserController {
     @Get('/')
-    getUsers(req: express.Request, res: express.Response) {
+    getUsers(req: Request, res: Response) {
         res.send('List of users');
     }
 }
@@ -22,7 +22,7 @@ class UserController {
 @Controller('/products')
 class ProductController {
     @Get('/')
-    getProducts(req: express.Request, res: express.Response) {
+    getProducts(req: Request, res: Response) {
         res.send('List of products');
     }
 }
