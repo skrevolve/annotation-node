@@ -8,31 +8,38 @@ npm install annotation-node
 
 ## example
 ```typescript
-import express, { Request, Response } from 'express';
-import { Controller, Get, ControllerRegistry } from 'annotation-node';
+import express from 'express';
+import { Controller, Get, ControllerRegistry } from 'your-package-name';
 
-@Controller('/api/user')
+@Controller('/users')
 class UserController {
-    @Get('/info')
-    sayHello(req: Request, res: Response) {
-        res.send('GET /api/user/info');
+    @Get('/')
+    getUsers(req: express.Request, res: express.Response) {
+        res.send('List of users');
     }
 }
 
-@Controller('/api/member')
-class MemberController {
-    @Get('/info')
-    sayHello(req: Request, res: Response) {
-        res.send('GET /api/member/info');
+@Controller('/products')
+class ProductController {
+    @Get('/')
+    getProducts(req: express.Request, res: express.Response) {
+        res.send('List of products');
     }
 }
 
 const app = express();
 
-ControllerRegistry.addControllers(app, [
-    UserController,
-    MemberController,
-]);
+// ex 1: 단일 배열로 컨트롤러 등록
+ControllerRegistry.addControllers(app, [UserController, ProductController]);
+
+// ex 2: 그룹화된 컨트롤러 등록
+ControllerRegistry.addControllers(app, {
+    '/v1': [UserController],
+    '/v2': [ProductController]
+});
+
+// ex 3: 전체 API에 대한 prefix 추가
+ControllerRegistry.addControllers(app, [UserController, ProductController], '/api');
 
 app.listen(3000, () => console.log('Server is running on port 3000'));
 ```
