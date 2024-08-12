@@ -25,7 +25,7 @@ app.listen(3000, () => console.log('Server is running on port 3000'));
 ```
 
 ```typescript
-import { Controller, Get, Post, Put, Delete } from 'my-express-decorators';
+import { Controller, Get, Post, Put, Delete } from 'annotation-node';
 import { Request, Response } from 'express';
 
 @Controller('/users')
@@ -55,7 +55,7 @@ export default UserController;
 ```
 
 ```typescript
-import { Controller, Get, Middleware } from 'my-express-decorators';
+import { Controller, Get, Middleware } from 'annotation-node';
 import { Request, Response, NextFunction } from 'express';
 
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
