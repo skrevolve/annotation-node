@@ -18,7 +18,7 @@ export class ControllerRegistry {
         }
     }
 
-    public static addController(app: Express, controller: any, groupPrefix: string = ''): void {
+    private static addController(app: Express, controller: any, groupPrefix: string = ''): void {
         const instance = new controller();
         const prefix = getMetadata(ROUTE_PREFIX, controller) || '';
         const routes: RouteDefinition[] = getMetadata(ROUTES, controller) || [];

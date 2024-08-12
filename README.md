@@ -34,12 +34,6 @@ ControllerRegistry.addControllers(app, [UserController, ProductController], '/ap
 app.listen(3000, () => console.log('Server is running on port 3000'));
 ```
 
-## Example using single controller
-```typescript
-ControllerRegistry.addController(UserController);
-ControllerRegistry.addController(ProductController);
-```
-
 ## Registering Controllers as a Single Array
 ```typescript
 ControllerRegistry.addControllers(app, [UserController, ProductController]);
