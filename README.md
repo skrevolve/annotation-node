@@ -8,19 +8,21 @@ npm install annotation-node
 
 ## example
 ```typescript
-import { App, Controller, Get } from 'annotation-node';
-import { Request, Response } from 'express';
+import express from 'express';
+import { Controller, Get, ControllerRegistry } from 'annotation-node';
 
 @Controller('/api')
 class HelloController {
     @Get('/hello')
-    sayHello(req: Request, res: Response) {
+    sayHello(req: express.Request, res: express.Response) {
         res.send('Hello, World!');
     }
 }
 
-const app = new App();
-app.addController(HelloController);
+const app = express();
+
+ControllerRegistry.registerControllers(app, [HelloController]);
+
 app.listen(3000, () => console.log('Server is running on port 3000'));
 ```
 
