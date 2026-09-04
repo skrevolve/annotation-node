@@ -1,5 +1,6 @@
 # annotation-node
 [![npm version](https://img.shields.io/npm/v/annotation-node?color=cb3837)](https://www.npmjs.com/package/annotation-node)
+[![npm_dowloads_total](https://img.shields.io/npm/dt/annotation-node?color=red)](https://www.npmjs.com/package/annotation-node)
 [![npm downloads](https://img.shields.io/npm/dm/annotation-node?color=blue)](https://www.npmjs.com/package/annotation-node)
 [![GitHub stars](https://img.shields.io/github/stars/skrevolve/annotation-node?style=flat&color=yellow)](https://github.com/skrevolve/annotation-node/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
